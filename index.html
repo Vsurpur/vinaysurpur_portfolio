@@ -3,473 +3,560 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vinay Surpur</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<title>Vinay Surpur — Data Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#0d0d0d;
-  --surface:#141414;
-  --surface2:#1a1a1a;
-  --border:#222;
-  --text:#f0f0f0;
-  --muted:#555;
-  --subtle:#333;
-  --accent:#e8e8e8;
-  --green:#4ade80;
-  --mono:'DM Mono',monospace;
-  --sans:'DM Sans',sans-serif;
+  --bg:#111318;
+  --surface:#181b22;
+  --surface2:#1e2230;
+  --border:#252a38;
+  --border2:#2e3448;
+  --text:#eef0f6;
+  --muted:#8892a4;
+  --faint:#4a5568;
+  --accent:#4f8ef7;
+  --accent-dim:rgba(79,142,247,0.12);
+  --accent-border:rgba(79,142,247,0.3);
+  --green:#34d399;
+  --green-dim:rgba(52,211,153,0.1);
+  --sans:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
 }
 html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:4px}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--subtle);border-radius:2px}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
 
-/* ── NAV ── */
+/* ─── NAV ─── */
 nav{
-  position:fixed;top:0;left:0;right:0;z-index:99;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 3rem;height:56px;
-  background:rgba(13,13,13,0.92);
-  backdrop-filter:blur(16px);
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  height:58px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2.5rem;
+  background:rgba(17,19,24,0.88);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);
 }
-.nav-name{font-family:var(--mono);font-size:.8rem;color:var(--muted);letter-spacing:.05em}
-.nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{font-size:.8rem;color:var(--muted);text-decoration:none;letter-spacing:.03em;transition:color .15s}
+.nav-brand{font-family:var(--mono);font-size:.8rem;color:var(--text);font-weight:500;letter-spacing:.02em}
+.nav-brand span{color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.82rem;color:var(--muted);text-decoration:none;font-weight:500;letter-spacing:.01em;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
-
-/* ── LAYOUT ── */
-main{max-width:720px;margin:0 auto;padding:0 2rem}
-
-/* ── SECTION BASE ── */
-section{padding:7rem 0 4rem}
-section+section{padding-top:5rem;border-top:1px solid var(--border)}
-.label{
-  font-family:var(--mono);font-size:.7rem;
-  color:var(--muted);letter-spacing:.12em;text-transform:uppercase;
-  margin-bottom:2.5rem;
+.nav-cta{
+  font-size:.78rem;font-family:var(--mono);
+  padding:.38rem 1rem;border-radius:5px;
+  background:var(--accent-dim);color:var(--accent);
+  border:1px solid var(--accent-border);text-decoration:none;
+  transition:background .2s;
 }
+.nav-cta:hover{background:rgba(79,142,247,0.2)}
 
-/* ── HERO ── */
-#hero{padding:10rem 0 5rem;border-bottom:1px solid var(--border)}
-.hero-status{
+/* ─── WRAPPER ─── */
+.wrap{max-width:740px;margin:0 auto;padding:0 2rem}
+
+/* ─── HERO ─── */
+#hero{
+  padding:120px 0 80px;
+  border-bottom:1px solid var(--border);
+}
+.status-pill{
   display:inline-flex;align-items:center;gap:.5rem;
-  font-family:var(--mono);font-size:.72rem;color:var(--muted);
-  margin-bottom:2rem;
+  background:var(--green-dim);border:1px solid rgba(52,211,153,0.2);
+  border-radius:99px;padding:.3rem .9rem;margin-bottom:2rem;
 }
-.dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-h1{
-  font-size:clamp(2.2rem,5vw,3.2rem);
-  font-weight:500;letter-spacing:-.03em;
-  line-height:1.15;margin-bottom:1.25rem;color:var(--text);
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(52,211,153,0.5)}60%{opacity:.5;box-shadow:0 0 0 4px rgba(52,211,153,0)}}
+.status-text{font-size:.72rem;font-family:var(--mono);color:var(--green);letter-spacing:.04em}
+h1{font-size:clamp(2rem,4.5vw,3rem);font-weight:700;line-height:1.15;letter-spacing:-.03em;margin-bottom:.6rem;color:var(--text)}
+.hero-sub{font-size:1rem;color:var(--accent);font-weight:500;margin-bottom:1.25rem;letter-spacing:.01em}
+.hero-bio{font-size:.93rem;color:var(--muted);max-width:540px;line-height:1.85;margin-bottom:2rem}
+.hero-bio strong{color:var(--text);font-weight:500}
+.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.btn{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-size:.8rem;font-weight:600;text-decoration:none;
+  padding:.5rem 1.2rem;border-radius:6px;transition:all .2s;cursor:pointer;border:none;font-family:var(--sans);
 }
-.hero-role{
-  font-size:1rem;color:var(--muted);
-  font-weight:400;margin-bottom:1.5rem;
-}
-.hero-bio{
-  font-size:.95rem;color:var(--muted);
-  max-width:520px;line-height:1.85;margin-bottom:2.5rem;
-}
-.hero-links{display:flex;gap:1rem;flex-wrap:wrap}
-.hl{
-  font-family:var(--mono);font-size:.75rem;
-  color:var(--muted);text-decoration:none;
-  border:1px solid var(--border);
-  padding:.45rem 1rem;border-radius:4px;
-  transition:color .15s,border-color .15s;
-}
-.hl:hover{color:var(--text);border-color:var(--subtle)}
-.hl.primary{color:var(--text);border-color:var(--subtle)}
-.hl.primary:hover{border-color:#555}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#3d7de0;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border2)}
+.btn-ghost:hover{color:var(--text);border-color:var(--faint)}
+.hero-stats{display:flex;gap:2.5rem;padding-top:2rem;border-top:1px solid var(--border)}
+.stat{}
+.stat-n{font-size:1.4rem;font-weight:700;color:var(--text);letter-spacing:-.02em}
+.stat-l{font-size:.72rem;color:var(--muted);margin-top:.1rem;font-family:var(--mono)}
 
-/* ── SKILLS ── */
-.skills-list{display:flex;flex-direction:column;gap:1.75rem}
-.skill-row{display:grid;grid-template-columns:140px 1fr;gap:1.5rem;align-items:start}
-.skill-cat{font-family:var(--mono);font-size:.72rem;color:var(--muted);padding-top:.15rem;letter-spacing:.04em}
-.skill-items{display:flex;flex-wrap:wrap;gap:.4rem}
-.pill{
-  font-family:var(--mono);font-size:.7rem;
-  background:var(--surface2);border:1px solid var(--border);
-  color:#888;padding:.25rem .65rem;border-radius:3px;
-  transition:color .15s,border-color .15s;
-}
-.pill:hover{color:var(--text);border-color:var(--subtle)}
+/* ─── SECTION SHELL ─── */
+.section{padding:5rem 0 3rem}
+.section+.section{border-top:1px solid var(--border)}
+.section-head{display:flex;align-items:center;gap:.85rem;margin-bottom:2.75rem}
+.section-num{font-family:var(--mono);font-size:.7rem;color:var(--accent);opacity:.7}
+.section-title{font-size:1.05rem;font-weight:600;color:var(--text);letter-spacing:.01em}
+.section-line{flex:1;height:1px;background:var(--border)}
 
-/* ── PROJECTS ── */
-.filter-row{display:flex;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
-.fb{
-  font-family:var(--mono);font-size:.7rem;
-  background:transparent;border:1px solid var(--border);
-  color:var(--muted);padding:.3rem .8rem;border-radius:3px;
-  cursor:pointer;transition:all .15s;
+/* ─── SKILLS ─── */
+.skills-table{display:flex;flex-direction:column;gap:1.25rem}
+.sk-row{display:grid;grid-template-columns:148px 1fr;gap:1.5rem;align-items:start}
+.sk-label{font-size:.75rem;font-family:var(--mono);color:var(--faint);padding-top:.3rem;letter-spacing:.04em}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{
+  font-size:.72rem;font-family:var(--mono);
+  padding:.28rem .65rem;border-radius:4px;
+  background:var(--surface2);border:1px solid var(--border2);
+  color:var(--muted);transition:all .15s;cursor:default;
 }
-.fb:hover,.fb.on{color:var(--text);border-color:var(--subtle);background:var(--surface2)}
-.projects-list{display:flex;flex-direction:column;gap:.75rem}
+.tag:hover{color:var(--text);border-color:var(--faint)}
+
+/* ─── PROJECTS ─── */
+.filter-pills{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:2rem}
+.fp{
+  font-size:.72rem;font-family:var(--mono);
+  padding:.3rem .85rem;border-radius:99px;
+  background:transparent;color:var(--muted);
+  border:1px solid var(--border2);cursor:pointer;
+  transition:all .2s;
+}
+.fp.on,.fp:hover{color:var(--accent);border-color:var(--accent-border);background:var(--accent-dim)}
+.proj-list{display:flex;flex-direction:column;gap:1px;border:1px solid var(--border);border-radius:10px;overflow:hidden}
 .pc{
-  border:1px solid var(--border);border-radius:6px;
-  padding:1.5rem;background:var(--surface);
-  transition:border-color .2s;cursor:default;
+  background:var(--surface);
+  padding:1.5rem 1.6rem;
+  border-bottom:1px solid var(--border);
+  transition:background .2s;
 }
-.pc:hover{border-color:var(--subtle)}
-.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.6rem}
-.pc-title{font-size:.95rem;font-weight:500;color:var(--text)}
-.pc-badges{display:flex;gap:.4rem;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
-.badge{
-  font-family:var(--mono);font-size:.62rem;
-  padding:.18rem .5rem;border-radius:2px;
-  background:var(--surface2);color:var(--muted);border:1px solid var(--border);
+.pc:last-child{border-bottom:none}
+.pc:hover{background:var(--surface2)}
+.pc.hidden{display:none}
+.pc-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.55rem}
+.pc-name{font-size:.95rem;font-weight:600;color:var(--text)}
+.pc-chips{display:flex;gap:.35rem;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.chip{
+  font-size:.62rem;font-family:var(--mono);letter-spacing:.03em;
+  padding:.2rem .55rem;border-radius:3px;
+  background:var(--surface2);color:var(--faint);border:1px solid var(--border2);
 }
-.pc-desc{font-size:.85rem;color:var(--muted);line-height:1.75;margin-bottom:1rem}
-.pc-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.chip.de{background:var(--accent-dim);color:var(--accent);border-color:var(--accent-border)}
+.chip.ml{background:rgba(52,211,153,.08);color:#34d399;border-color:rgba(52,211,153,.2)}
+.pc-desc{font-size:.84rem;color:var(--muted);line-height:1.78;margin-bottom:1rem}
+.pc-desc strong{color:var(--text);font-weight:500}
+.pc-foot{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.6rem}
 .pc-stack{display:flex;flex-wrap:wrap;gap:.35rem}
 .pc-link{
-  font-family:var(--mono);font-size:.7rem;color:var(--muted);
-  text-decoration:none;border:1px solid var(--border);
-  padding:.25rem .7rem;border-radius:3px;
-  transition:all .15s;white-space:nowrap;flex-shrink:0;
+  font-size:.72rem;font-family:var(--mono);color:var(--muted);
+  text-decoration:none;border:1px solid var(--border2);
+  padding:.25rem .7rem;border-radius:4px;
+  transition:all .15s;flex-shrink:0;
 }
-.pc-link:hover{color:var(--text);border-color:var(--subtle)}
-.pc.hidden{display:none}
+.pc-link:hover{color:var(--accent);border-color:var(--accent-border)}
 
-/* ── WORK EX ── */
-.jobs{display:flex;flex-direction:column;gap:2.5rem}
-.job-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;margin-bottom:.2rem;flex-wrap:wrap}
-.job-co{font-size:.95rem;font-weight:500;color:var(--text)}
-.job-date{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
-.job-role{font-size:.82rem;color:var(--muted);margin-bottom:.85rem;font-family:var(--mono)}
+/* ─── WORK ─── */
+.jobs{display:flex;flex-direction:column;gap:0}
+.job{
+  padding:1.6rem 0;
+  border-bottom:1px solid var(--border);
+}
+.job:last-child{border-bottom:none}
+.job-header{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:.2rem}
+.job-co{font-size:.95rem;font-weight:600;color:var(--text)}
+.job-date{font-family:var(--mono);font-size:.7rem;color:var(--faint);flex-shrink:0;margin-top:.15rem}
+.job-role{font-size:.78rem;font-family:var(--mono);color:var(--accent);margin-bottom:.9rem}
 .job-pts{list-style:none;display:flex;flex-direction:column;gap:.55rem}
-.job-pts li{font-size:.85rem;color:var(--muted);padding-left:1.1rem;position:relative;line-height:1.75}
-.job-pts li::before{content:'—';position:absolute;left:0;color:var(--subtle);font-size:.8rem}
-
-/* ── EDUCATION ── */
-.edu-list{display:flex;flex-direction:column;gap:2rem}
-.edu-item{}
-.edu-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap;margin-bottom:.2rem}
-.edu-deg{font-size:.95rem;font-weight:500;color:var(--text)}
-.edu-yr{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
-.edu-school{font-size:.82rem;color:var(--muted);margin-bottom:.6rem;font-family:var(--mono)}
-.edu-detail{font-size:.82rem;color:var(--muted)}
-
-/* ── CONTACT ── */
-#contact{padding-bottom:8rem}
-.contact-grid{display:flex;flex-direction:column;gap:.85rem}
-.contact-row{
-  display:flex;align-items:center;gap:1rem;
-  padding:.9rem 1rem;
-  border:1px solid var(--border);border-radius:5px;
-  text-decoration:none;color:var(--muted);
-  background:var(--surface);
-  transition:border-color .15s,color .15s;
-  font-size:.85rem;
+.job-pts li{
+  font-size:.85rem;color:var(--muted);
+  padding-left:1.1rem;position:relative;line-height:1.78;
 }
-.contact-row:hover{border-color:var(--subtle);color:var(--text)}
-.contact-icon{font-family:var(--mono);font-size:.7rem;color:var(--subtle);width:56px;flex-shrink:0;letter-spacing:.05em}
-.contact-val{font-family:var(--mono);font-size:.78rem}
-.contact-arr{margin-left:auto;color:var(--subtle);font-size:.8rem;transition:transform .15s}
-.contact-row:hover .contact-arr{transform:translateX(3px)}
+.job-pts li::before{content:'›';position:absolute;left:0;color:var(--accent);font-size:.9rem;line-height:1.6}
+.job-pts li strong{color:var(--text);font-weight:500}
 
-/* ── FOOTER ── */
+/* ─── EDUCATION ─── */
+.edu-list{display:flex;flex-direction:column;gap:0}
+.edu{padding:1.5rem 0;border-bottom:1px solid var(--border)}
+.edu:last-child{border-bottom:none}
+.edu-top{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.2rem}
+.edu-deg{font-size:.95rem;font-weight:600;color:var(--text)}
+.edu-yr{font-family:var(--mono);font-size:.7rem;color:var(--faint)}
+.edu-school{font-size:.8rem;font-family:var(--mono);color:var(--accent);margin-bottom:.5rem}
+.edu-note{font-size:.83rem;color:var(--muted);line-height:1.7}
+.edu-note strong{color:var(--text);font-weight:500}
+
+/* ─── CERTIFICATIONS ─── */
+.cert-list{display:flex;flex-direction:column;gap:.75rem}
+.cert{
+  display:flex;align-items:center;gap:1rem;
+  padding:1rem 1.2rem;
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:8px;transition:border-color .2s;
+}
+.cert:hover{border-color:var(--border2)}
+.cert-icon{
+  width:36px;height:36px;border-radius:7px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;
+}
+.cert-icon.google{background:rgba(66,133,244,.12);border:1px solid rgba(66,133,244,.2)}
+.cert-icon.snow{background:rgba(41,182,246,.1);border:1px solid rgba(41,182,246,.2)}
+.cert-info{flex:1}
+.cert-name{font-size:.85rem;font-weight:500;color:var(--text);margin-bottom:.1rem}
+.cert-issuer{font-size:.72rem;font-family:var(--mono);color:var(--faint)}
+.cert-badge{
+  font-size:.65rem;font-family:var(--mono);
+  padding:.2rem .55rem;border-radius:3px;
+  background:var(--green-dim);color:var(--green);
+  border:1px solid rgba(52,211,153,.2);flex-shrink:0;
+}
+
+/* ─── CONTACT ─── */
+.contact-rows{display:flex;flex-direction:column;gap:.6rem;margin-bottom:2.5rem}
+.cr{
+  display:flex;align-items:center;gap:1rem;
+  padding:.9rem 1.1rem;border-radius:7px;
+  background:var(--surface);border:1px solid var(--border);
+  text-decoration:none;color:var(--muted);
+  transition:all .2s;
+}
+.cr:hover{border-color:var(--accent-border);background:var(--accent-dim);color:var(--text)}
+.cr-key{font-family:var(--mono);font-size:.7rem;color:var(--faint);width:60px;flex-shrink:0}
+.cr-val{font-size:.84rem;font-weight:400}
+.cr-arr{margin-left:auto;font-size:.8rem;color:var(--faint);transition:transform .2s}
+.cr:hover .cr-arr{transform:translateX(4px);color:var(--accent)}
+.contact-note{font-size:.82rem;color:var(--faint);text-align:center;font-family:var(--mono);padding-bottom:1rem}
+
+/* ─── FOOTER ─── */
 footer{
   border-top:1px solid var(--border);
-  padding:2rem 0;max-width:720px;margin:0 auto;
+  padding:1.75rem 2rem;
+  max-width:740px;margin:0 auto;
   display:flex;justify-content:space-between;align-items:center;
-  padding-left:2rem;padding-right:2rem;
 }
-.foot-left{font-family:var(--mono);font-size:.7rem;color:var(--muted)}
-.foot-right{font-family:var(--mono);font-size:.7rem;color:var(--subtle)}
+.foot-l{font-family:var(--mono);font-size:.7rem;color:var(--faint)}
+.foot-r{font-family:var(--mono);font-size:.7rem;color:var(--faint)}
 
-/* ── RESPONSIVE ── */
-@media(max-width:640px){
-  nav{padding:0 1.5rem}
-  .nav-links{gap:1.5rem}
-  main{padding:0 1.5rem}
-  .skill-row{grid-template-columns:1fr;gap:.5rem}
-  .job-top,.edu-top{flex-direction:column;gap:.2rem}
-  footer{flex-direction:column;gap:.5rem;text-align:center;padding:2rem 1.5rem}
+/* ─── RESPONSIVE ─── */
+@media(max-width:620px){
+  nav{padding:0 1.25rem}
+  .nav-links{gap:1.25rem}
+  .nav-cta{display:none}
+  .wrap{padding:0 1.25rem}
+  .sk-row{grid-template-columns:1fr;gap:.4rem}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+  footer{flex-direction:column;gap:.4rem;text-align:center}
 }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- ── NAV ── -->
 <nav>
-  <span class="nav-name">vsurpur</span>
+  <div class="nav-brand">vinay<span>.</span>surpur</div>
   <ul class="nav-links">
     <li><a href="#skills">Skills</a></li>
     <li><a href="#projects">Projects</a></li>
-    <li><a href="#work">Work</a></li>
+    <li><a href="#work">Experience</a></li>
     <li><a href="#education">Education</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a href="mailto:vsurpur@umd.edu" class="nav-cta">Hire me →</a>
 </nav>
 
-<main>
+<div class="wrap">
 
-  <!-- HERO -->
-  <section id="hero">
-    <div class="hero-status">
-      <span class="dot"></span>
-      Available for full-time roles
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="status-pill">
+    <span class="status-dot"></span>
+    <span class="status-text">Open to full-time opportunities</span>
+  </div>
+  <h1>Vinay Surpur</h1>
+  <p class="hero-sub">Data Engineer · Cloud · Analytics · ML</p>
+  <p class="hero-bio">
+    I design and ship <strong>production-grade data pipelines</strong>, distributed systems, and analytics infrastructure. 
+    MS in Business Analytics from <strong>University of Maryland</strong>. 
+    3+ years building with Python, PySpark, AWS, and BigQuery — from startup MVPs to enterprise-scale automation.
+  </p>
+  <div class="hero-actions">
+    <a href="#projects" class="btn btn-primary">View Projects →</a>
+    <a href="https://github.com/Vsurpur" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+    <a href="https://www.linkedin.com/in/vinaysurpur/" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n">3+</div><div class="stat-l">yrs experience</div></div>
+    <div class="stat"><div class="stat-n">50B+</div><div class="stat-l">records processed</div></div>
+    <div class="stat"><div class="stat-n">6</div><div class="stat-l">projects shipped</div></div>
+    <div class="stat"><div class="stat-n">3.7</div><div class="stat-l">MS GPA</div></div>
+  </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section class="section" id="skills">
+  <div class="section-head">
+    <span class="section-num">01</span>
+    <span class="section-title">Skills</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-table">
+    <div class="sk-row">
+      <span class="sk-label">Languages</span>
+      <div class="tags"><span class="tag">Python</span><span class="tag">SQL</span><span class="tag">PL/SQL</span><span class="tag">R</span><span class="tag">Bash</span><span class="tag">Shell</span></div>
     </div>
-    <h1>Vinay Surpur</h1>
-    <p class="hero-role">Data Engineer · Analytics · Cloud</p>
-    <p class="hero-bio">
-      I build scalable data pipelines and distributed systems that move, clean, and transform data into something useful. MS in Business Analytics from the University of Maryland. Previously at Innoplexus.
-    </p>
-    <div class="hero-links">
-      <a href="#projects" class="hl primary">View projects</a>
-      <a href="https://www.linkedin.com/in/vinaysurpur/" target="_blank" class="hl">LinkedIn ↗</a>
-      <a href="https://github.com/Vsurpur" target="_blank" class="hl">GitHub ↗</a>
-      <a href="mailto:vsurpur@umd.edu" class="hl">Email</a>
+    <div class="sk-row">
+      <span class="sk-label">Data Engineering</span>
+      <div class="tags"><span class="tag">ETL / ELT</span><span class="tag">PySpark</span><span class="tag">dbt</span><span class="tag">Apache Airflow</span><span class="tag">Databricks</span><span class="tag">Snowflake</span><span class="tag">Medallion Arch.</span></div>
     </div>
-  </section>
+    <div class="sk-row">
+      <span class="sk-label">Cloud</span>
+      <div class="tags"><span class="tag">AWS S3</span><span class="tag">Glue</span><span class="tag">Lambda</span><span class="tag">Redshift</span><span class="tag">Bedrock</span><span class="tag">GCP BigQuery</span><span class="tag">Dataflow</span></div>
+    </div>
+    <div class="sk-row">
+      <span class="sk-label">Databases</span>
+      <div class="tags"><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Oracle SQL</span><span class="tag">MongoDB</span><span class="tag">DynamoDB</span></div>
+    </div>
+    <div class="sk-row">
+      <span class="sk-label">ML & Analytics</span>
+      <div class="tags"><span class="tag">Scikit-learn</span><span class="tag">K-Means</span><span class="tag">PCA</span><span class="tag">NLP / TF-IDF</span><span class="tag">A/B Testing</span><span class="tag">Tableau</span><span class="tag">Power BI</span></div>
+    </div>
+    <div class="sk-row">
+      <span class="sk-label">DevOps</span>
+      <div class="tags"><span class="tag">Docker</span><span class="tag">Git</span><span class="tag">CI/CD</span><span class="tag">REST APIs</span><span class="tag">Flask</span><span class="tag">UAT</span></div>
+    </div>
+  </div>
+</section>
 
-  <!-- SKILLS -->
-  <section id="skills">
-    <p class="label">Skills</p>
-    <div class="skills-list">
-      <div class="skill-row">
-        <span class="skill-cat">Languages</span>
-        <div class="skill-items">
-          <span class="pill">Python</span><span class="pill">SQL</span><span class="pill">PL/SQL</span><span class="pill">R</span><span class="pill">Bash</span><span class="pill">Shell</span>
-        </div>
+<!-- ── PROJECTS ── -->
+<section class="section" id="projects">
+  <div class="section-head">
+    <span class="section-num">02</span>
+    <span class="section-title">Projects</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="filter-pills">
+    <button class="fp on" onclick="filter('all',this)">All</button>
+    <button class="fp" onclick="filter('de',this)">Data Engineering</button>
+    <button class="fp" onclick="filter('ml',this)">Machine Learning</button>
+    <button class="fp" onclick="filter('analytics',this)">Analytics</button>
+  </div>
+  <div class="proj-list">
+
+    <div class="pc" data-cat="de analytics">
+      <div class="pc-head">
+        <span class="pc-name">AI-Driven Loan Document Automation — AWS</span>
+        <div class="pc-chips"><span class="chip de">Data Eng</span><span class="chip">AWS · AI</span></div>
       </div>
-      <div class="skill-row">
-        <span class="skill-cat">Data Engineering</span>
-        <div class="skill-items">
-          <span class="pill">ETL / ELT</span><span class="pill">PySpark</span><span class="pill">dbt</span><span class="pill">Apache Airflow</span><span class="pill">Databricks</span><span class="pill">Snowflake</span><span class="pill">Medallion Arch.</span>
-        </div>
-      </div>
-      <div class="skill-row">
-        <span class="skill-cat">Cloud</span>
-        <div class="skill-items">
-          <span class="pill">AWS S3</span><span class="pill">Glue</span><span class="pill">Lambda</span><span class="pill">Redshift</span><span class="pill">Bedrock</span><span class="pill">GCP BigQuery</span><span class="pill">Dataflow</span>
-        </div>
-      </div>
-      <div class="skill-row">
-        <span class="skill-cat">Databases</span>
-        <div class="skill-items">
-          <span class="pill">PostgreSQL</span><span class="pill">MySQL</span><span class="pill">Oracle SQL</span><span class="pill">MongoDB</span><span class="pill">DynamoDB</span>
-        </div>
-      </div>
-      <div class="skill-row">
-        <span class="skill-cat">ML & Analytics</span>
-        <div class="skill-items">
-          <span class="pill">Scikit-learn</span><span class="pill">K-Means</span><span class="pill">PCA</span><span class="pill">NLP</span><span class="pill">Tableau</span><span class="pill">Power BI</span>
-        </div>
-      </div>
-      <div class="skill-row">
-        <span class="skill-cat">DevOps</span>
-        <div class="skill-items">
-          <span class="pill">Docker</span><span class="pill">Git</span><span class="pill">CI/CD</span><span class="pill">REST APIs</span><span class="pill">Flask</span>
-        </div>
+      <p class="pc-desc">Redesigned a <strong>500-page loan packet processing workflow</strong> handling 12,000+ loans/day. Translated manual bottlenecks into a cloud-native pipeline using <strong>AWS Bedrock, Step Functions, Lambda, and DynamoDB</strong> with SQL stored procedures for extraction logic. Validated accuracy with Python and co-designed ETL ingestion pipelines — cutting same-day processing capacity from 5% to over <strong>90%</strong> and reducing manual review effort by <strong>70%</strong>.</p>
+      <div class="pc-foot">
+        <div class="pc-stack"><span class="tag">Bedrock</span><span class="tag">Step Functions</span><span class="tag">Lambda</span><span class="tag">DynamoDB</span><span class="tag">S3</span><span class="tag">Python</span><span class="tag">SQL</span></div>
       </div>
     </div>
-  </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <p class="label">Projects</p>
-    <div class="filter-row">
-      <button class="fb on" onclick="filter('all',this)">All</button>
-      <button class="fb" onclick="filter('de',this)">Data Engineering</button>
-      <button class="fb" onclick="filter('ml',this)">Machine Learning</button>
-      <button class="fb" onclick="filter('analytics',this)">Analytics</button>
+    <div class="pc" data-cat="de ml analytics">
+      <div class="pc-head">
+        <span class="pc-name">Gannett — Audience Segmentation & Revenue Growth</span>
+        <div class="pc-chips"><span class="chip de">Data Eng</span><span class="chip ml">ML</span></div>
+      </div>
+      <p class="pc-desc">Engineered <strong>distributed behavioral aggregations</strong> across 50B+ GA4 events using PySpark on GCP clusters with BigQuery ML. Applied <strong>K-Means Clustering</strong> to surface 5 high-value subscriber cohorts, then drove personalized pricing and retention playbooks through rigorous <strong>A/B testing and elasticity analysis</strong> — improving CTR by <strong>8%</strong> and boosting subscription revenue by <strong>10%</strong>.</p>
+      <div class="pc-foot">
+        <div class="pc-stack"><span class="tag">PySpark</span><span class="tag">BigQuery</span><span class="tag">K-Means</span><span class="tag">GA4</span><span class="tag">A/B Testing</span><span class="tag">Python</span></div>
+      </div>
     </div>
-    <div class="projects-list">
 
-      <!-- AI Document -->
-      <div class="pc" data-cat="de analytics">
-        <div class="pc-top">
-          <span class="pc-title">AI-Driven Document Automation Platform</span>
-          <div class="pc-badges"><span class="badge">AWS</span><span class="badge">Data Eng</span></div>
-        </div>
-        <p class="pc-desc">Mapped loan processing workflows for 500-page packets at 12,000+ loans/day. Built automation using AWS Bedrock, S3, Step Functions and SQL stored procedures — increasing same-day processing from 5% to 90%+, reducing manual review by 70%.</p>
-        <div class="pc-bottom">
-          <div class="pc-stack"><span class="pill">Bedrock</span><span class="pill">Lambda</span><span class="pill">DynamoDB</span><span class="pill">S3</span><span class="pill">Python</span><span class="pill">SQL</span></div>
-        </div>
+    <div class="pc" data-cat="de">
+      <div class="pc-head">
+        <span class="pc-name">NYC Taxi — Medallion Architecture Pipeline</span>
+        <div class="pc-chips"><span class="chip de">Data Eng</span><span class="chip">PySpark</span></div>
       </div>
-
-      <!-- Gannett -->
-      <div class="pc" data-cat="de ml analytics">
-        <div class="pc-top">
-          <span class="pc-title">Gannett — Audience Segmentation & Revenue Optimization</span>
-          <div class="pc-badges"><span class="badge">BigQuery</span><span class="badge">ML</span></div>
-        </div>
-        <p class="pc-desc">Processed 50B+ GA4 events with PySpark on distributed clusters. Applied K-Means Clustering to identify 5 high-value customer cohorts. A/B testing and elasticity analysis improved CTR by 8% and subscription revenue by 10%.</p>
-        <div class="pc-bottom">
-          <div class="pc-stack"><span class="pill">PySpark</span><span class="pill">BigQuery</span><span class="pill">K-Means</span><span class="pill">GA4</span><span class="pill">A/B Testing</span></div>
-        </div>
+      <p class="pc-desc">Built a production-style <strong>Bronze → Silver → Gold</strong> pipeline processing <strong>11M+ NYC Yellow Taxi records</strong>. Applied 4 data quality rules at the Silver layer to remove ~2.6M invalid trips. Generated business-ready KPIs — peak demand by hour, daily revenue, top locations — using <strong>Window Functions and partitioned Parquet storage</strong>. Full pipeline runs in ~13 seconds locally using optimized shuffle partitions.</p>
+      <div class="pc-foot">
+        <div class="pc-stack"><span class="tag">PySpark</span><span class="tag">Medallion</span><span class="tag">Parquet</span><span class="tag">Window Fn</span><span class="tag">Python</span></div>
+        <a href="https://github.com/Vsurpur/NYC-Taxi-pyspark" target="_blank" class="pc-link">GitHub ↗</a>
       </div>
-
-      <!-- NYC Taxi -->
-      <div class="pc" data-cat="de">
-        <div class="pc-top">
-          <span class="pc-title">NYC Taxi Medallion Pipeline</span>
-          <div class="pc-badges"><span class="badge">PySpark</span><span class="badge">ETL</span></div>
-        </div>
-        <p class="pc-desc">End-to-end Bronze → Silver → Gold pipeline processing 11M+ NYC Taxi records. Removed ~2.6M invalid trips via data quality rules. Produced analytics-ready KPIs using Window Functions and partitioned Parquet storage — all in ~13 seconds locally.</p>
-        <div class="pc-bottom">
-          <div class="pc-stack"><span class="pill">PySpark</span><span class="pill">Parquet</span><span class="pill">Window Fn</span><span class="pill">Python</span></div>
-          <a href="https://github.com/Vsurpur/NYC-Taxi-pyspark" target="_blank" class="pc-link">GitHub ↗</a>
-        </div>
-      </div>
-
-      <!-- Credit Card -->
-      <div class="pc" data-cat="ml analytics">
-        <div class="pc-top">
-          <span class="pc-title">Credit Card Customer Clustering</span>
-          <div class="pc-badges"><span class="badge">Unsupervised</span><span class="badge">ML</span></div>
-        </div>
-        <p class="pc-desc">Segmented ~9,000 active credit card holders across 18 behavioral features. Used PCA for dimensionality reduction and K-Means to identify distinct spending clusters for targeted marketing strategy.</p>
-        <div class="pc-bottom">
-          <div class="pc-stack"><span class="pill">K-Means</span><span class="pill">PCA</span><span class="pill">Scikit-learn</span><span class="pill">Python</span></div>
-          <a href="https://github.com/Vsurpur/CreditCardClustering" target="_blank" class="pc-link">GitHub ↗</a>
-        </div>
-      </div>
-
-      <!-- Income Prediction -->
-      <div class="pc" data-cat="ml">
-        <div class="pc-top">
-          <span class="pc-title">Income Prediction</span>
-          <div class="pc-badges"><span class="badge">Classification</span><span class="badge">ML</span></div>
-        </div>
-        <p class="pc-desc">Implemented and benchmarked multiple supervised ML classifiers to predict whether an individual's income exceeds $50K. Explored feature engineering and model evaluation across algorithms.</p>
-        <div class="pc-bottom">
-          <div class="pc-stack"><span class="pill">Scikit-learn</span><span class="pill">Pandas</span><span class="pill">NumPy</span><span class="pill">Python</span></div>
-          <a href="https://github.com/Vsurpur/IncomePrediction" target="_blank" class="pc-link">GitHub ↗</a>
-        </div>
-      </div>
-
-      <!-- Movie Recommender -->
-      <div class="pc" data-cat="ml">
-        <div class="pc-top">
-          <span class="pc-title">Content-Based Movie Recommender</span>
-          <div class="pc-badges"><span class="badge">NLP</span><span class="badge">ML</span></div>
-        </div>
-        <p class="pc-desc">Built a recommendation engine on the TMDB 5000 dataset. Combined genres, synopsis, cast, and directors into unified tags, vectorized using TF-IDF, and ranked recommendations via cosine similarity.</p>
-        <div class="pc-bottom">
-          <div class="pc-stack"><span class="pill">NLP</span><span class="pill">TF-IDF</span><span class="pill">Cosine Sim</span><span class="pill">Python</span></div>
-          <a href="https://github.com/Vsurpur/MovieRecommenderSystem" target="_blank" class="pc-link">GitHub ↗</a>
-        </div>
-      </div>
-
     </div>
-  </section>
 
-  <!-- WORK EX -->
-  <section id="work">
-    <p class="label">Work Experience</p>
-    <div class="jobs">
-
-      <div class="job">
-        <div class="job-top">
-          <span class="job-co">University of Maryland — Office of Career Services</span>
-          <span class="job-date">May 2025 – Dec 2025</span>
-        </div>
-        <p class="job-role">Software Development & Data Analytics Intern · College Park, MD</p>
-        <ul class="job-pts">
-          <li>Optimized 10+ ETL pipelines integrating Salesforce via REST API into centralized stores with automated Cron scheduling — reducing processing time by 40% for 20,000+ student records.</li>
-          <li>Implemented SQL and Python-based validation frameworks across three academic platforms — reducing data discrepancies by 30% and raising reporting accuracy to 90%.</li>
-        </ul>
+    <div class="pc" data-cat="ml analytics">
+      <div class="pc-head">
+        <span class="pc-name">Credit Card Customer Segmentation</span>
+        <div class="pc-chips"><span class="chip ml">ML</span><span class="chip">Unsupervised</span></div>
       </div>
-
-      <div class="job">
-        <div class="job-top">
-          <span class="job-co">Innoplexus Consulting Services</span>
-          <span class="job-date">Jan 2023 – Apr 2024</span>
-        </div>
-        <p class="job-role">Data Engineer · Pune, India</p>
-        <ul class="job-pts">
-          <li>Architected drug data ingestion pipelines using Python, REST APIs, web scraping, and MongoDB with parallel processing — cutting runtime by 50% and manual effort by 40%.</li>
-          <li>Built healthcare data transformation and scoring pipelines (Pandas, NumPy, Scikit-learn), containerized with Docker — improving model accuracy by 30% and enabling an investor-backed beta launch.</li>
-        </ul>
+      <p class="pc-desc">Segmented <strong>~9,000 active credit card holders</strong> using 18 behavioral variables (balance, purchases, payments, cash advance frequency). Applied <strong>PCA</strong> to reduce dimensionality and <strong>K-Means</strong> to identify distinct spending profiles — enabling data-driven, targeted marketing strategy across customer clusters.</p>
+      <div class="pc-foot">
+        <div class="pc-stack"><span class="tag">K-Means</span><span class="tag">PCA</span><span class="tag">Scikit-learn</span><span class="tag">Pandas</span><span class="tag">Python</span></div>
+        <a href="https://github.com/Vsurpur/CreditCardClustering" target="_blank" class="pc-link">GitHub ↗</a>
       </div>
-
-      <div class="job">
-        <div class="job-top">
-          <span class="job-co">Innoplexus Consulting Services</span>
-          <span class="job-date">Sep 2022 – Dec 2022</span>
-        </div>
-        <p class="job-role">Data Engineering Intern · Pune, India</p>
-        <ul class="job-pts">
-          <li>Engineered a PDF text extraction pipeline using Python, OCR, and image processing integrated into NoSQL via automated ETL — achieving 92% extraction accuracy.</li>
-          <li>Built a Flask dashboard for automated error detection and ETL workflow monitoring — reducing validation effort by 30%.</li>
-        </ul>
-      </div>
-
     </div>
-  </section>
 
-  <!-- EDUCATION -->
-  <section id="education">
-    <p class="label">Education</p>
-    <div class="edu-list">
-
-      <div class="edu-item">
-        <div class="edu-top">
-          <span class="edu-deg">M.S. Business Analytics</span>
-          <span class="edu-yr">Dec 2025</span>
-        </div>
-        <p class="edu-school">University of Maryland, Robert H. Smith School of Business · College Park, MD</p>
-        <p class="edu-detail">GPA 3.7 &nbsp;·&nbsp; Terrapin Scholar &nbsp;·&nbsp; Coursework: DBMS, Big Data, Cloud Computing, Predictive Analytics, Data Mining, Data Visualization, Pricing Optimization</p>
+    <div class="pc" data-cat="ml">
+      <div class="pc-head">
+        <span class="pc-name">Income Prediction — ML Classifier Benchmarking</span>
+        <div class="pc-chips"><span class="chip ml">ML</span><span class="chip">Classification</span></div>
       </div>
-
-      <div class="edu-item">
-        <div class="edu-top">
-          <span class="edu-deg">B.E. Electronics & Telecommunications</span>
-          <span class="edu-yr">May 2022</span>
-        </div>
-        <p class="edu-school">Savitribai Phule Pune University · Pune, India</p>
-        <p class="edu-detail">GPA 7.93 / 10 &nbsp;·&nbsp; First Class with Distinction</p>
+      <p class="pc-desc">Developed and benchmarked multiple <strong>supervised classification models</strong> (Logistic Regression, Random Forest, Gradient Boosting) to predict whether an individual's income exceeds $50K. Focused on <strong>feature engineering, class imbalance handling, and precision-recall tradeoffs</strong> across algorithms to surface the best-performing approach.</p>
+      <div class="pc-foot">
+        <div class="pc-stack"><span class="tag">Scikit-learn</span><span class="tag">Random Forest</span><span class="tag">Gradient Boost</span><span class="tag">Pandas</span><span class="tag">Python</span></div>
+        <a href="https://github.com/Vsurpur/IncomePrediction" target="_blank" class="pc-link">GitHub ↗</a>
       </div>
-
     </div>
-  </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <p class="label">Contact</p>
-    <div class="contact-grid">
-      <a href="mailto:vsurpur@umd.edu" class="contact-row">
-        <span class="contact-icon">email</span>
-        <span class="contact-val">vsurpur@umd.edu</span>
-        <span class="contact-arr">→</span>
-      </a>
-      <a href="https://www.linkedin.com/in/vinaysurpur/" target="_blank" class="contact-row">
-        <span class="contact-icon">linkedin</span>
-        <span class="contact-val">linkedin.com/in/vinaysurpur</span>
-        <span class="contact-arr">→</span>
-      </a>
-      <a href="https://github.com/Vsurpur" target="_blank" class="contact-row">
-        <span class="contact-icon">github</span>
-        <span class="contact-val">github.com/Vsurpur</span>
-        <span class="contact-arr">→</span>
-      </a>
-      <a href="tel:+12409278420" class="contact-row">
-        <span class="contact-icon">phone</span>
-        <span class="contact-val">+1 240-927-8420</span>
-        <span class="contact-arr">→</span>
-      </a>
+    <div class="pc" data-cat="ml">
+      <div class="pc-head">
+        <span class="pc-name">Content-Based Movie Recommender System</span>
+        <div class="pc-chips"><span class="chip ml">ML</span><span class="chip">NLP</span></div>
+      </div>
+      <p class="pc-desc">Built a recommendation engine on the <strong>TMDB 5000 dataset</strong> using content-based filtering. Engineered rich feature tags by combining genres, plot synopses, top 3 cast members, and director — then <strong>vectorized with TF-IDF</strong> and ranked results via <strong>cosine similarity</strong> to return 5 personalized recommendations per query.</p>
+      <div class="pc-foot">
+        <div class="pc-stack"><span class="tag">TF-IDF</span><span class="tag">Cosine Similarity</span><span class="tag">NLP</span><span class="tag">TMDB</span><span class="tag">Python</span></div>
+        <a href="https://github.com/Vsurpur/MovieRecommenderSystem" target="_blank" class="pc-link">GitHub ↗</a>
+      </div>
     </div>
-  </section>
 
-</main>
+  </div>
+</section>
+
+<!-- ── WORK EX ── -->
+<section class="section" id="work">
+  <div class="section-head">
+    <span class="section-num">03</span>
+    <span class="section-title">Work Experience</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="jobs">
+
+    <div class="job">
+      <div class="job-header">
+        <span class="job-co">University of Maryland — Office of Career Services</span>
+        <span class="job-date">May 2025 – Dec 2025</span>
+      </div>
+      <p class="job-role">Software Development & Data Analytics Intern · College Park, MD</p>
+      <ul class="job-pts">
+        <li>Rebuilt and optimized <strong>10+ ETL pipelines</strong> using Python and SQL, integrating Salesforce CRM data via REST API into a centralized data warehouse — reducing batch processing time by <strong>40%</strong> and enabling reporting at scale for 20,000+ students.</li>
+        <li>Designed and deployed <strong>automated data quality frameworks</strong> across three academic platforms, implementing reconciliation logic and integrity checks that cut data discrepancies by <strong>30%</strong> and raised reporting accuracy to <strong>90%</strong>.</li>
+        <li>Automated batch scheduling with <strong>Cron jobs</strong>, eliminating manual intervention and ensuring reliable, time-sensitive data delivery across downstream dashboards and stakeholder reports.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <span class="job-co">Innoplexus Consulting Services</span>
+        <span class="job-date">Jan 2023 – Apr 2024</span>
+      </div>
+      <p class="job-role">Data Engineer · Pune, India</p>
+      <ul class="job-pts">
+        <li>Architected <strong>end-to-end drug data ingestion pipelines</strong> from 10+ pharmaceutical sources using Python, REST APIs, and web scraping — replacing fragmented manual workflows and cutting data acquisition runtime by <strong>50%</strong> and manual effort by <strong>40%</strong>.</li>
+        <li>Designed <strong>MongoDB schema and indexing strategies</strong> with parallel processing to optimize query performance on large, nested biomedical datasets — improving throughput and supporting real-time analytics dashboards.</li>
+        <li>Built <strong>ML scoring pipelines</strong> on healthcare datasets (Pandas, NumPy, Scikit-learn) containerized with Docker — improved model accuracy by <strong>30%</strong>, directly contributing to a production MVP that secured an investor-backed beta launch.</li>
+      </ul>
+    </div>
+
+    <div class="job">
+      <div class="job-header">
+        <span class="job-co">Innoplexus Consulting Services</span>
+        <span class="job-date">Sep 2022 – Dec 2022</span>
+      </div>
+      <p class="job-role">Data Engineering Intern · Pune, India</p>
+      <ul class="job-pts">
+        <li>Engineered a <strong>PDF text extraction pipeline</strong> using Python, OCR, and image processing — automated data loading into NoSQL with validation and logging, achieving <strong>92% extraction accuracy</strong> across varied document formats.</li>
+        <li>Developed a <strong>Flask-based operations dashboard</strong> integrated with production ETL pipelines for real-time error detection, monitoring, and workflow orchestration — reducing manual validation effort by <strong>30%</strong>.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── EDUCATION ── -->
+<section class="section" id="education">
+  <div class="section-head">
+    <span class="section-num">04</span>
+    <span class="section-title">Education</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="edu-list">
+    <div class="edu">
+      <div class="edu-top">
+        <span class="edu-deg">M.S. Business Analytics</span>
+        <span class="edu-yr">Dec 2025</span>
+      </div>
+      <p class="edu-school">University of Maryland, Robert H. Smith School of Business · College Park, MD</p>
+      <p class="edu-note"><strong>GPA 3.7</strong> · Terrapin Scholar · Coursework: DBMS, Big Data, Cloud Computing, Predictive Analytics, Data Mining, Data Visualization, Pricing Optimization, Operations Management</p>
+    </div>
+    <div class="edu">
+      <div class="edu-top">
+        <span class="edu-deg">B.E. Electronics & Telecommunications</span>
+        <span class="edu-yr">May 2022</span>
+      </div>
+      <p class="edu-school">Savitribai Phule Pune University · Pune, India</p>
+      <p class="edu-note"><strong>GPA 7.93 / 10</strong> · First Class with Distinction</p>
+    </div>
+  </div>
+
+  <!-- CERTIFICATIONS -->
+  <div style="margin-top:2.5rem">
+    <div class="section-head" style="margin-bottom:1.5rem">
+      <span class="section-num">04b</span>
+      <span class="section-title">Certifications</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="cert-list">
+      <div class="cert">
+        <div class="cert-icon google">🔵</div>
+        <div class="cert-info">
+          <div class="cert-name">Google Data Analytics Professional Certificate</div>
+          <div class="cert-issuer">Google · Coursera</div>
+        </div>
+        <span class="cert-badge">Verified</span>
+      </div>
+      <div class="cert">
+        <div class="cert-icon snow">❄️</div>
+        <div class="cert-info">
+          <div class="cert-name">Intro to Snowflake for Devs, Data Scientists & Data Engineers</div>
+          <div class="cert-issuer">LinkedIn Learning</div>
+        </div>
+        <span class="cert-badge">Verified</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="section" id="contact" style="padding-bottom:6rem">
+  <div class="section-head">
+    <span class="section-num">05</span>
+    <span class="section-title">Contact</span>
+    <div class="section-line"></div>
+  </div>
+  <div class="contact-rows">
+    <a href="mailto:vsurpur@umd.edu" class="cr">
+      <span class="cr-key">email</span>
+      <span class="cr-val">vsurpur@umd.edu</span>
+      <span class="cr-arr">→</span>
+    </a>
+    <a href="https://www.linkedin.com/in/vinaysurpur/" target="_blank" class="cr">
+      <span class="cr-key">linkedin</span>
+      <span class="cr-val">linkedin.com/in/vinaysurpur</span>
+      <span class="cr-arr">→</span>
+    </a>
+    <a href="https://github.com/Vsurpur" target="_blank" class="cr">
+      <span class="cr-key">github</span>
+      <span class="cr-val">github.com/Vsurpur</span>
+      <span class="cr-arr">→</span>
+    </a>
+    <a href="tel:+12409278420" class="cr">
+      <span class="cr-key">phone</span>
+      <span class="cr-val">+1 240-927-8420</span>
+      <span class="cr-arr">→</span>
+    </a>
+  </div>
+  <p class="contact-note">Based in College Park, MD · Open to remote, hybrid, or on-site roles</p>
+</section>
+
+</div><!-- /wrap -->
 
 <footer>
-  <span class="foot-left">Vinay Surpur · 2026</span>
-  <span class="foot-right">Data Engineer</span>
+  <span class="foot-l">© 2026 Vinay Surpur</span>
+  <span class="foot-r">Built for vsurpur.github.io</span>
 </footer>
 
 <script>
 function filter(cat, btn) {
-  document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.fp').forEach(b => b.classList.remove('on'));
   btn.classList.add('on');
   document.querySelectorAll('.pc').forEach(card => {
     if (cat === 'all' || (card.dataset.cat || '').includes(cat)) {
